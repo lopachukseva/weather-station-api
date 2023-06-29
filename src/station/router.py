@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.post("/new_point")
+@router.post("/new-point")
 async def add_point(new_point: NewPoint, access_key: AccessKey, session: AsyncSession = Depends(get_async_session)):
     access_key = access_key.dict()["key"]
     if access_key == STATION_ACCESS_KEY:
@@ -24,7 +24,7 @@ async def add_point(new_point: NewPoint, access_key: AccessKey, session: AsyncSe
         return {"status": "not allowed"}
 
 
-@router.post("/new_station")
+@router.post("/new-station")
 async def add_station(new_station: NewStation, access_key: AccessKey, session: AsyncSession = Depends(get_async_session)):
     access_key = access_key.dict()["key"]
     if access_key == USER_ACCESS_KEY:
