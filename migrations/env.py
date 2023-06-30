@@ -1,16 +1,13 @@
-from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
-from alembic import context
-
 import os
 import sys
+from logging.config import fileConfig
+
+from alembic import context
+from sqlalchemy import engine_from_config, pool
 
 sys.path.append(os.path.join(sys.path[0], 'src'))
 
-from src.config import DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME
+from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 from src.station.models import metadata as station_metadata
 
 # this is the Alembic Config object, which provides

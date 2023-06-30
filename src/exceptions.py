@@ -2,5 +2,5 @@ class NoDataException(Exception):
     pass
 
 
-class WrongAccessCodeException(Exception):
+class WrongAccessKeyException(Exception):
     pass

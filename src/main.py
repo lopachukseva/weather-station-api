@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from station.router import router as router_station
+
 from information.router import router as router_information
+from station.router import router as router_station
 
 app = FastAPI(name="Weather station")
 
