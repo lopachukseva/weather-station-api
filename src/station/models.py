@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Table, Column, Integer, String, ForeignKey, MetaData, DateTime, TIMESTAMP
+from sqlalchemy import Table, Column, SmallInteger, Integer, String, ForeignKey, MetaData, TIMESTAMP
 
 metadata = MetaData()
 
@@ -18,8 +18,8 @@ point = Table(
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("station_id", Integer, ForeignKey(station.c.id)),
     Column("date", TIMESTAMP, default=datetime.utcnow),
-    Column("temperature", Integer, nullable=False),
-    Column("wind_direction", Integer, nullable=False),
-    Column("wind_speed", Integer, nullable=False),
-    Column("air_humidity", Integer, nullable=False),
+    Column("temperature", SmallInteger, nullable=False),
+    Column("wind_direction", SmallInteger, nullable=False),
+    Column("wind_speed", SmallInteger, nullable=False),
+    Column("air_humidity", SmallInteger, nullable=False),
 )
