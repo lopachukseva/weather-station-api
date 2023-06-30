@@ -1,3 +1,5 @@
+from typing import Optional, List
+
 from pydantic import BaseModel
 
 
@@ -16,3 +18,18 @@ class NewPoint(BaseModel):
 
 class AccessKey(BaseModel):
     key: str
+
+
+class Station(BaseModel):
+    id: int
+    name: str
+    city: str
+
+    class Config:
+        orm_mode = True
+
+
+class StationResponse(BaseModel):
+    status: str
+    data: Optional[List[Station]]
+    details: Optional[str]
