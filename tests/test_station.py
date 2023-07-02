@@ -2,6 +2,8 @@ from httpx import AsyncClient
 
 from src.config import STATION_ACCESS_KEY, USER_ACCESS_KEY
 
+from datetime import date
+
 
 async def test_add_station(ac: AsyncClient):
     response = await ac.post("/station/new-station", json={
@@ -29,6 +31,30 @@ async def test_add_point(ac: AsyncClient):
         },
         "access_key": {
             "key": STATION_ACCESS_KEY
+        }
+    })
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "success"
+
+
+async def test_get_stations(ac: AsyncClient):
+    response = await ac.post("/station/stations", json={
+        "key": USER_ACCESS_KEY
+    })
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "success"
+
+
+async def test_get_date_avg(ac: AsyncClient):
+    response = await ac.post("/info/get-date-avg", json={
+        "request_data": {
+            "station_id": 1,
+            "req_date": str(date.today())
+        },
+        "access_key": {
+            "key": USER_ACCESS_KEY
         }
     })
 
