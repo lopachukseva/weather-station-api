@@ -62,3 +62,17 @@ async def test_get_date_avg(ac: AsyncClient):
 
     assert response.status_code == 200
     assert response.json()["status"] == "success"
+
+
+async def test_get_last_station_point(ac: AsyncClient):
+    response = await ac.post("/info/get-last-station-point", json={
+        "request_data": {
+            "station_id": 1
+        },
+        "access_key": {
+            "key": USER_ACCESS_KEY
+        }
+    })
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "success"

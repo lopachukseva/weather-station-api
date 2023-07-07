@@ -6,3 +6,7 @@ from pydantic import BaseModel
 class AvgByDateRequest(BaseModel):
     station_id: int
     req_date: date
+
+
+class LastPointStationRequest(BaseModel):
+    station_id: int

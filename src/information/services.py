@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import func, select
+from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from exceptions import NoDataException
@@ -8,7 +8,7 @@ from information.utils import get_avg_direction
 from station.models import point
 
 
-async def get_average_values_by_date_and_station(station_id: int, req_date: date, session: AsyncSession):
+async def get_date_avg_data(station_id: int, req_date: date, session: AsyncSession):
     points_query = select(point).where(point.c.station_id == station_id).filter(func.date(point.c.date) == req_date)
     points = await session.execute(points_query)
     points = points.all()
@@ -34,3 +34,17 @@ async def get_average_values_by_date_and_station(station_id: int, req_date: date
         "avg_wind_speed": wind_speed / points_count,
         "avg_air_humidity": air_humidity / points_count,
     }
+
+
+async def get_last_station_point_data(station_id: int, session: AsyncSession):
+    query = select(point).where(point.c.station_id == station_id).order_by(point.c.date.desc())
+    points = await session.execute(query)
+    points = points.first()
+    return {
+        "temperature": points[3],
+        "wind_directions": points[4],
+        "wind_speed": points[5],
+        "air_humidity": points[6],
+    }
+
+
