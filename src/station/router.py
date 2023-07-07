@@ -63,12 +63,6 @@ async def add_station(new_station: NewStation, access_key: AccessKey,
             "data": None,
             "details": "wrong access code",
         }
-    except Exception:
-        return {
-            "status": "error",
-            "data": None,
-            "details": None,
-        }
 
 
 @router.post("/stations", response_model=StationResponse)
@@ -89,10 +83,4 @@ async def get_stations(access_key: AccessKey, session: AsyncSession = Depends(ge
             "status": "error",
             "data": None,
             "details": "wrong access code",
-        }
-    except Exception:
-        return {
-            "status": "error",
-            "data": None,
-            "details": None,
         }

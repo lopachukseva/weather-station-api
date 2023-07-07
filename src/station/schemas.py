@@ -6,6 +6,8 @@ from pydantic import BaseModel
 class NewStation(BaseModel):
     name: str
     city: str
+    lat: int
+    lon: int
 
 
 class NewPoint(BaseModel):

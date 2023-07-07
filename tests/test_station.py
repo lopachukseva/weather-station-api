@@ -1,15 +1,17 @@
+from datetime import date
+
 from httpx import AsyncClient
 
 from src.config import STATION_ACCESS_KEY, USER_ACCESS_KEY
-
-from datetime import date
 
 
 async def test_add_station(ac: AsyncClient):
     response = await ac.post("/station/new-station", json={
         "new_station": {
             "name": "Mondy",
-            "city": "Saint-Petersburg"
+            "city": "Saint-Petersburg",
+            "lat": 10,
+            "lon": 20
         },
         "access_key": {
             "key": USER_ACCESS_KEY

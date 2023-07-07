@@ -11,6 +11,8 @@ station = Table(
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("name", String, nullable=False),
     Column("city", String, nullable=False),
+    Column("lat", SmallInteger),
+    Column("lon", SmallInteger),
 )
 
 point = Table(
