@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from common.responses import MainResponse
 from config import USER_ACCESS_KEY
 from database import get_async_session
 from exceptions import NoDataException, WrongAccessKeyException
-from common.responses import MainResponse
 from information.schemas import AvgByDateRequest, LastPointStationRequest
 from information.services import get_date_avg_data, get_last_station_point_data
 from station.schemas import AccessKey

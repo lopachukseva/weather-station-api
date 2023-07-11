@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from config import STATION_ACCESS_KEY, USER_ACCESS_KEY
 from common.responses import MainResponse
+from config import STATION_ACCESS_KEY, USER_ACCESS_KEY
 from database import get_async_session
 from exceptions import WrongAccessKeyException
 from station.models import point, station
@@ -57,4 +57,4 @@ async def get_stations(access_key: AccessKey, session: AsyncSession = Depends(ge
         return MainResponse(status="success", data=stations.all()).get_response()
 
     except WrongAccessKeyException:
-        return MainResponse(status="error", details="wrong access code")
+        return MainResponse(status="error", details="wrong access code").get_response()
