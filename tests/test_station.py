@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 from httpx import AsyncClient
 
@@ -53,7 +53,7 @@ async def test_get_date_avg(ac: AsyncClient):
     response = await ac.post("/info/get-date-avg", json={
         "request_data": {
             "station_id": 1,
-            "req_date": str(date.today())
+            "req_date": str(datetime.utcnow().date())
         },
         "access_key": {
             "key": USER_ACCESS_KEY
