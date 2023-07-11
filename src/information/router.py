@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from config import USER_ACCESS_KEY
 from database import get_async_session
 from exceptions import NoDataException, WrongAccessKeyException
+from common.responses import MainResponse
 from information.schemas import AvgByDateRequest, LastPointStationRequest
 from information.services import get_date_avg_data, get_last_station_point_data
 from station.schemas import AccessKey
@@ -24,26 +25,13 @@ async def get_date_avg(request_data: AvgByDateRequest, access_key: AccessKey,
         request = request_data.dict()
         station_id, req_date = request.get("station_id"), request.get("req_date")
         data = await get_date_avg_data(station_id, req_date, session)
-
-        return {
-            "status": "success",
-            "data": data,
-            "details": None,
-        }
+        return MainResponse(status="success", data=data).get_response()
 
     except WrongAccessKeyException:
-        return {
-            "status": "error",
-            "data": None,
-            "details": "wrong access code",
-        }
+        return MainResponse(status="error", details="wrong access code").get_response()
 
     except NoDataException:
-        return {
-            "status": "error",
-            "data": None,
-            "details": "no data for this day",
-        }
+        return MainResponse(status="error", details="no data for this day").get_response()
 
 
 @router.post("/get-last-station-point")
@@ -56,23 +44,10 @@ async def get_last_station_point(request_data: LastPointStationRequest, access_k
         request = request_data.dict()
         station_id = request.get("station_id")
         data = await get_last_station_point_data(station_id, session)
-
-        return {
-            "status": "success",
-            "data": data,
-            "details": None,
-        }
+        return MainResponse(status="success", data=data).get_response()
 
     except WrongAccessKeyException:
-        return {
-            "status": "error",
-            "data": None,
-            "details": "wrong access code",
-        }
+        return MainResponse(status="error", details="wrong access code").get_response()
 
     except NoDataException:
-        return {
-            "status": "error",
-            "data": None,
-            "details": "no data for this day",
-        }
+        return MainResponse(status="error", details="no data for this day").get_response()
